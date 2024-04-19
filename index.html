@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            display: flex;
+            background-color: aqua;
+        }
+        .box{
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .love{
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .love{
+            flex: 0 0 20%;
+        }
+        #box-1{
+            flex: 0 0 30%;
+            background-color: blue;
+        }
+        #box-2{
+            flex:0 0 40%;
+            background-color: gold;
+        }
+        #box-3{
+            flex:0 0 30%;
+            background-color: green;
+        }
+        .header{
+            width: 100vw;
+            height: 20vh;
+            background-color: brown;
+            color: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 2s;
+        }
+        .header:hover{
+            border: 20px solid pink;
+        }
+        .footer{
+            width: 100vw;
+            height: 20vh;
+            background-color: black;
+            color: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 2s;
+        }
+        .footer:hover{
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        My Love
+    </div>
+    <div class="container">
+        
+    <div class="box" id="box-1">box-1</div>
+    <div class="box" id="box-2">box-2</div>
+    <div class="box" id="box-3">box-3</div>
+    <!-- <div class="box" id="box-4">box-4</div>
+    <div class="box" id="box-5">box-5</div>
+    <div class="box" id="box-6">box-6</div>
+    <div class="box" id="box-7">box-7</div>
+    <div class="box" id="box-8">box-8</div>
+    <div class="box" id="box-9">box-9</div>
+    <div class="box" id="box-10">box-10</div> -->
+    </div>
+    <div class="footer">
+        <div class="love" id="love-1">love-1</div>
+        <div class="love" id="love-2">love-2</div>
+        <div class="love" id="love-3">love-3</div>
+        <div class="love" id="love-4">love-4</div>
+
+    </div>
+</body>
+</html>
