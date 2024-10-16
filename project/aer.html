@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="style.css">
+      <title>Quiz app </title>
+   </head> 
+   <body>
+    
+    <section id="loadPg">
+       <div id="loading1"></div>
+       <div id="loading2"></div>
+       <div id="loading3"></div>
+       <div id="centr">BOLD<br>BYTE</div>
+    </section>
+    
+    <section id="firstPg">
+    
+       <h2 class="heading">VERTEX 2.0 QUIZ - 01</h2>
+       <img id="logo" src="https://dl.dropbox.com/s/ywtlewlkg3rgicp/question-mark_1150-39362.jpg">
+       <div class="btnCont">
+          <button class="btn" id="start">Start</button>
+          <button class="btn" id="mus">🎶</button>
+	  <script type="text/javascript">
+         if( localStorage.hits ){
+            localStorage.hits = Number(localStorage.hits) +1;
+         } else{
+            localStorage.hits = 1;
+         }
+         document.write("Total Views :" + localStorage.hits );
+      </script>
+       </div>
+       <button class="btn dark" id="mode">🌙</button>
+    </section>
+    
+    
+    <section id="main">
+       <div id="top">
+         <p id="QNum">1</p>
+         <div id="prog"></div>
+         <span>Quiz</span>
+         <span>App</span>
+       </div> 
+       <div id="subHead"></div>
+       <div id="queCont">
+          <div id="queWrap">
+             <p id="que">Choose the wrong simile !?</p>
+             <button class="opt">As deep as well</button>
+             <button class="opt">As sly as wily</button>
+             <button class="opt">As cool as cucumber</button>
+             <button class="opt">As red as beetroot</button>
+          </div>
+       </div>
+       <div id="chngBtn">
+          <button id="prev">Prev</button>
+          <button id="nxt">Next</button>
+       </div>
+       <button id="submit">SUBMIT</button>
+    </section>
+    
+    
+    <section id="resultPg" class="slideL">
+       <h2 class="heading">QUIZ APP</h2>
+       <div id="resultBox">
+          <h2>RESULT</h2>
+          <p><b>Total</b><span>:</span><b>25</b></p>
+          <p><b>Attempted</b><span>:</span><b id="atmptd"></b></p>
+          <p><b>Correct</b><span>:</span><b id="crct"></b></p>
+          <p><b>Incorrect</b><span>:</span><b id="incrct"></b></p>
+       </div>
+       <button class="btn" id="replay">Replay</button>
+       <button class="btn" onclick="home()">Go to Home</button>
+    </section>
+    <audio id="audio" src="https://dl.dropbox.com/s/k6btbfr92sftbhj/faded_instrumental.mp3"></audio>
+<script type="text/javascript">
+
+   var mode = document.querySelector("#mode"),
+   mus = document.querySelector("#mus"),
+   audio = document.querySelector("#audio"),
+   loadPg = document.querySelector("#loadPg"),
+   firstPg = document.querySelector("#firstPg"),
+   start = document.querySelector("#start"),
+replay = document.querySelector("#replay"),
+   incrct = document.querySelector("#incrct"),
+   crct = document.querySelector("#crct"),
+   atmptd = document.querySelector("#atmptd"),
+   main = document.querySelector("#main"),
+   resultPg = document.querySelector("#resultPg"),
+   queWrap = document.querySelector("#queWrap"),
+   progress = document.querySelector("#prog"),
+   qNum = document.querySelector("#QNum"),
+   chngBtn = document.querySelector("#chngBtn"),
+   nxt = document.querySelector("#nxt"),
+   prev = document.querySelector("#prev"),
+   que = document.querySelector("#que"),
+   opt = document.querySelectorAll(".opt");
+   const body = document.body;
+   
+   
+   const ques = [
+      { question : "what is the capital of BIHAR?:",
+        opt1 : "India",
+        opt2 : "Patna",
+        opt3 : "Delhi",
+        opt4 : "Rajkot",
+        ans : "Patna"
+      },
+      { question : "WHO is the prime minister of INDIA:",
+        opt1 : "Jawahar lal nehru",
+        opt2 : "jorg washington",
+        opt3 :"Nawaj Sarif" ,
+		opt4 : "Narendra damodar das Modi",
+		ans : "Narendra damodar das Modi"
+      },
+      { question : "Name longest river of India:",
+        opt1 : "Niel",
+        opt2 : "Sarswati",
+        opt3 : "Son",
+        opt4 : "Ganga",
+        ans : "Yamuna",
+      },
+      { question : "What is the capital of Japan?:",
+        opt1 : "Tokyo",
+        opt2 : "Pakistan",
+        opt3 : "India",
+        opt4 : "America",
+        ans : "Tokyo"
+      },
+      { question : "Who is the father of Nation?:",
+        opt1 : "M.Gandhi",
+        opt2 : "S.Bose",
+        opt3 : "Abhishek raj",
+        opt4 : "Khusi ram bose",
+        ans : "M.Gandhi"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As deep as whole",
+        opt2 : "As deep as well",
+        opt3 : "As impatient as lover",
+        opt4 : "As mad as hatter",
+        ans : "As deep as whole"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As blind as pigeon",
+        opt2 : "As bitter as hem lock",
+        opt3 : "As blind as bat",
+        opt4 : "As red as beetroot",
+        ans : "As blind as pigeon"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As deep as well",
+        opt2 : "As black as pitch",
+        opt3 : "As cold as ice",
+        opt4 : "As noisy as lizard",
+        ans : "As noisy as lizard"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As fit as fiddle",
+        opt2 : "As sly as wily",
+        opt3 : "As gloomy as midnight",
+        opt4 : "As impatient as lover",
+        ans : "As gloomy as midnight"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As impatient as hatter",
+        opt2 : "As sly as lamb",
+        opt3 : "As bold as elephant",
+        opt4 : "All of these",
+        ans : "All of these"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As bitter as bitter gaurd",
+        opt2 : "As sly as wily",
+        opt3 : "As still as long",
+        opt4 : "As good as gold",
+        ans : "As bitter as bitter gaurd"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As good as gold",
+        opt2 : "As bright as beauty",
+        opt3 : "As impatient as lover",
+        opt4 : "As red as blood",
+        ans : "As bright as beauty"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As deep as whole",
+        opt2 : "As mad as march hare",
+        opt3 : "As cool as cucumber",
+        opt4 : "As red as beetroot",
+        ans : "As deep as whole"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As wise as bat",
+        opt2 : "As good as wilygold",
+        opt3 : "As cool as cucumber",
+        opt4 : "As bright as silver",
+        ans : "As wise as bat"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As impatient as lover",
+        opt2 : "As brittle as wood",
+        opt3 : "As good as gold",
+        opt4 : "As red as rose",
+        ans : "As brittle as wood"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As red as rose",
+        opt2 : "As red as turkey cock",
+        opt3 : "As red as blood",
+        opt4 : "As red as beetroot",
+        ans : "As red as beetroot"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As fit as fiddle",
+        opt2 : "As good as gold",
+        opt3 : "As black as bronze",
+        opt4 : "As impatient as lover",
+        ans : "As black as bronze"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As deep as well",
+        opt2 : "As busy as employees",
+        opt3 : "As cold as ice",
+        opt4 : "As red as turkey cock",
+        ans : "As busy as employees"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As white as milk",
+        opt2 : "As sly as fox",
+        opt3 : "As cool as marble",
+        opt4 : "As red as rose",
+        ans : "As white as milk"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As changeable as girl",
+        opt2 : "As changeable as boy",
+        opt3 : "As changeable as flatter",
+        opt4 : "All of these",
+        ans : "All of these"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As deep as well",
+        opt2 : "As pure as oil",
+        opt3 : "As good as cucumber",
+        opt4 : "All of these",
+        ans : "All of these"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As black as bronze",
+        opt2 : "As red as beetroot",
+        opt3 : "As cool as freezer",
+        opt4 : "All of these",
+        ans : "All of these"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As red as beetroot",
+        opt2 : "As black as bronze",
+        opt3 : "As hot as water heater",
+        opt4 : "All of these",
+        ans : "All of these"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As gloomy as night",
+        opt2 : "As black as eyeballs",
+        opt3 : "As cool as cucumber",
+        opt4 : "As red as turkey cock",
+        ans : "As black as eyeballs"
+      },
+	  { question : "Choose the incorrect simile:",
+        opt1 : "As per as question",
+        opt2 : "As sly as wolf",
+        opt3 : "As cool as marble",
+        opt4 : "As red as blood",
+        ans : "As per as question"
+      }
+   ]
+   
+   
+   var selections = new Array(ques.length).fill(" ");
+   
+   
+   nxt.addEventListener("click",vibrt)
+   prev.addEventListener("click",vibrt)
+   nxt.addEventListener("click",function(){
+      if(n<ques.length-1){
+         n++;
+         showQuestion(n);
+      }
+      else{}
+   })
+   prev.addEventListener("click",function(){
+      if(n>0){
+         n--;
+         showQuestion(n);
+      }
+      else{}
+   })
+   
+   
+   
+   var n = 0;
+   function showQuestion(n){
+      qNum.innerHTML = n+1;
+      prog.style.width = (n+1)/ques.length*100+"%";
+      
+      for(i=0; i<opt.length;i++){
+         opt[i].innerHTML = ques[n]["opt"+(i+1)];
+         opt[i].style.background="black";
+      }
+      if(selections[n].innerHTML!=" "){
+         for(j=0;j<opt.length;j++){
+            if(opt[j].innerHTML==selections[n]){
+               opt[j].style.background="orange";
+            }
+         }
+      }
+      que.innerHTML = ques[n].question;
+   }
+   showQuestion(0);
+
+   
+
+   for(i=0;i<opt.length;i++){
+     opt[i].addEventListener("click",function(){
+        body.style.backgroundColor = "orange";
+        for(j=0;j<opt.length;j++){
+          opt[j].style.backgroundColor="#222";
+        }
+        selections[n] = this.innerHTML;
+        this.style.backgroundColor="orange";
+     })
+   }
+   
+   
+   var correct = 0, incorrect = 0, attempted=0;
+   submit.addEventListener("click",function(){
+      resultPg.style.display="block";
+      setTimeout(function(){resultPg.style.left="0"});
+      for(k=0;k<ques.length;k++){
+         if(selections[k]==ques[k].ans){
+            correct++;
+            attempted++;
+         }
+         else if(selections[k]!=" "){
+            incorrect++;
+            attempted++;
+         }
+      }
+      crct.innerHTML = correct;
+      incrct.innerHTML = incorrect;
+      atmptd.innerHTML = attempted;
+      
+      setTimeout(function(){
+         main.style.display="none";
+      },500)
+   })
+   
+   
+   replay.addEventListener("click",rplay)
+   function rplay(){
+      selections.fill(" ")
+      for(i=0;i<opt.length;i++){
+         opt[i].style.background="black";
+      }
+      resultPg.style.left="100%";
+      n=0,attempted=0,correct=0,incorrect=0;
+      showQuestion(0);
+      main.style.display="block";
+      setTimeout(function(){
+         resultPg.style.display="none";
+      },500)
+   }
+   
+   
+   start.addEventListener("click",function(){
+      main.style.display="block";
+      main.style.left="100%"
+      setTimeout(function(){
+         main.style.left="0";
+      })
+      setTimeout(function(){
+         firstPg.style.display="none"
+      },500)
+      rplay();
+   })
+   
+   
+   function home(){
+      firstPg.style.display="block";
+      resultPg.style.left="100%";
+      setTimeout(function(){
+         resultPg.style.display="none";
+      },500)
+   }
+   
+   
+   mus.addEventListener("click",music)
+   function music(){
+      if(audio.paused){
+         audio.play();
+         mus.style.background="#ffa";
+      }
+      else{
+         audio.pause();
+         mus.style.background="var(--txt)";
+      }
+   }
+   
+   
+   function vibrt(bs){navigator.vibrate("75");}
+   
+   
+   setTimeout(function(){
+      loadPg.style.left="-100%";
+      setTimeout(function(){
+         loadPg.style.display="none";
+      },500)
+   },6000)
+   
+   
+   
+   var root = document.querySelector(":root");
+   mode.addEventListener("click",function(){
+      
+      if(mode.classList.contains("dark")){
+         root.style.setProperty("--mode-color","#013");
+         root.style.setProperty("--dot-color","#308a8a");
+         root.style.setProperty("--txt","#eef");
+         root.style.setProperty("--trans","rgba(255,255,255,.1)")
+         mode.className="btn light";
+         mode.innerHTML ="🔆";
+      }
+      else{
+         root.style.setProperty("--mode-color","#60bfbf");
+         root.style.setProperty("--dot-color","white");
+         root.style.setProperty("--txt","#fff");
+         root.style.setProperty("--trans","rgba(0,0,0,.1)")
+         mode.className="btn dark";
+         mode.innerHTML ="🌙";
+      }
+      
+   })
+   
+   
+</script>
+   </body>
+</html>
